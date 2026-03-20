@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="moli_fondo">#F6EFE6</color>
+    <color name="moli_terracota">#C96A4B</color>
+    <color name="moli_verde">#5E8B7E</color>
+    <color name="moli_maiz">#E6B84C</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_dark">#666666</color>
+    <color name="gray_light">#DEDEDE</color>
+</resources>

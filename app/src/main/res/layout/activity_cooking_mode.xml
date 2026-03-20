@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/moli_fondo"
+    android:padding="24dp">
+
+    <ImageButton
+        android:id="@+id/btnBackFromCooking"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_menu_revert"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/moli_terracota" />
+
+    <TextView
+        android:id="@+id/tvCookingTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="MODO COCINA"
+        android:textColor="@color/moli_terracota"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btnBackFromCooking"
+        app:layout_constraintEnd_toStartOf="@id/btnTimerShort"
+        app:layout_constraintStart_toEndOf="@id/btnBackFromCooking"
+        app:layout_constraintTop_toTopOf="@id/btnBackFromCooking" />
+
+    <ImageButton
+        android:id="@+id/btnTimerShort"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_menu_recent_history"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/moli_terracota" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/cookingProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:indicatorColor="@color/moli_verde"
+        app:layout_constraintTop_toBottomOf="@id/btnBackFromCooking"
+        app:trackColor="@color/white"
+        app:trackCornerRadius="4dp"
+        app:trackThickness="8dp"
+        android:progress="33" />
+
+    <TextView
+        android:id="@+id/tvStepNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="PASO 1 DE 5"
+        android:textColor="@color/moli_verde"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cookingProgress" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardStep"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toTopOf="@id/btnNextStep"
+        app:layout_constraintTop_toBottomOf="@id/tvStepNumber">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/tvStepDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aquí aparecerá la descripción del paso actual de la receta con un tamaño de letra grande para que sea fácil de leer mientras cocinas."
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:lineSpacingExtra="8dp" />
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPrevStep"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:text="ANTERIOR"
+        android:textColor="@color/moli_terracota"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnNextStep"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/moli_terracota" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNextStep"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/moli_terracota"
+        android:text="SIGUIENTE"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnPrevStep" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
