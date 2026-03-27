@@ -51,16 +51,106 @@
                     android:id="@+id/tvRecipeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Enchiladas Verdes"
+                    android:text="Nombre de la Receta"
                     android:textColor="@color/moli_terracota"
                     android:textSize="28sp"
                     android:textStyle="bold" />
+
+                <!-- Barra de Tiempo y Porciones -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#F1E3D3">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@android:drawable/ic_menu_recent_history"
+                            app:tint="@color/moli_terracota" />
+
+                        <TextView
+                            android:id="@+id/tvTotalTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="35 min"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="20dp"
+                            android:layout_marginHorizontal="16dp"
+                            android:background="@color/gray_light" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@android:drawable/ic_menu_myplaces"
+                            app:tint="@color/moli_terracota" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Porciones"
+                            android:textColor="@color/black" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:background="@drawable/portion_selector_bg"
+                            android:padding="2dp">
+
+                            <ImageButton
+                                android:id="@+id/btnDecreasePortions"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@android:drawable/ic_menu_delete"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                app:tint="@color/moli_terracota" />
+
+                            <TextView
+                                android:id="@+id/tvPortionCount"
+                                android:layout_width="30dp"
+                                android:layout_height="wrap_content"
+                                android:text="1"
+                                android:textAlignment="center"
+                                android:textStyle="bold"
+                                android:textColor="@color/moli_terracota" />
+
+                            <ImageButton
+                                android:id="@+id/btnIncreasePortions"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@android:drawable/ic_input_add"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                app:tint="@color/moli_terracota" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnStartCooking"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:text="INICIAR MODO COCINA"
                     android:backgroundTint="@color/moli_verde"
                     app:cornerRadius="12dp"
@@ -70,19 +160,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="INGREDIENTES"
-                    android:layout_marginTop="24dp"
                     android:textColor="@color/moli_verde"
                     android:textStyle="bold"
-                    android:letterSpacing="0.1" />
+                    android:letterSpacing="0.1"
+                    android:layout_marginTop="24dp" />
 
-                <TextView
-                    android:id="@+id/tvIngredientsList"
+                <!-- Contenedor para Checkboxes de Ingredientes -->
+                <LinearLayout
+                    android:id="@+id/containerIngredients"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="• 12 tortillas de maíz\n• 500g de pechuga de pollo\n• 1/2 kg de tomate verde\n• 2 chiles serranos\n• Cilantro y cebolla"
-                    android:lineSpacingExtra="6dp"
-                    android:textSize="16sp" />
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -98,7 +187,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="1. Cuece el pollo con cebolla y sal.\n2. Licúa los tomates cocidos con el chile y cilantro.\n3. Fríe ligeramente las tortillas, rellena con pollo y baña con la salsa caliente."
+                    android:text="Carga de preparación..."
                     android:lineSpacingExtra="6dp"
                     android:textSize="16sp" />
 

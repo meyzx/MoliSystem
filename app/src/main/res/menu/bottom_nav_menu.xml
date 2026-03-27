@@ -5,11 +5,19 @@
         android:icon="@android:drawable/ic_menu_today"
         android:title="Inicio" />
     <item
-        android:id="@+id/nav_favorites"
-        android:icon="@android:drawable/btn_star_big_on"
-        android:title="Favoritos" />
+        android:id="@+id/nav_recipes"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Recetas" />
+    <item
+        android:id="@+id/nav_placeholder"
+        android:title=""
+        android:enabled="false" />
     <item
         android:id="@+id/nav_timer"
         android:icon="@android:drawable/ic_menu_recent_history"
         android:title="Reloj" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="Perfil" />
 </menu>

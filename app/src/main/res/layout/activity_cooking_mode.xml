@@ -70,10 +70,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="4dp"
-        app:layout_constraintBottom_toTopOf="@id/btnNextStep"
+        app:layout_constraintBottom_toTopOf="@id/timerContainer"
         app:layout_constraintTop_toBottomOf="@id/tvStepNumber">
 
         <ScrollView
@@ -85,12 +85,43 @@
                 android:id="@+id/tvStepDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Aquí aparecerá la descripción del paso actual de la receta con un tamaño de letra grande para que sea fácil de leer mientras cocinas."
+                android:text="Descripción del paso..."
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:lineSpacingExtra="8dp" />
         </ScrollView>
     </com.google.android.material.card.MaterialCardView>
+
+    <!-- Contenedor del Timer Integrado -->
+    <LinearLayout
+        android:id="@+id/timerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
+        android:padding="16dp"
+        android:background="@drawable/portion_selector_bg"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/btnNextStep">
+
+        <TextView
+            android:id="@+id/tvTimerCountdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:textColor="@color/moli_terracota" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStartStepTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INICIAR TIMER"
+            android:backgroundTint="@color/moli_verde"
+            app:cornerRadius="20dp" />
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPrevStep"

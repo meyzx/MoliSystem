@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class RecipeAdapter(
-    private val recipes: List<Recipe>,
+    private var recipes: List<Recipe>,
     private val onItemClick: (Recipe) -> Unit
 ) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
@@ -27,7 +27,8 @@ class RecipeAdapter(
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val recipe = recipes[position]
         holder.tvTitle.text = recipe.title
-        holder.tvIngredients.text = recipe.ingredients
+        // Join ingredient names for a summary view
+        holder.tvIngredients.text = recipe.ingredients.joinToString(", ") { it.name }
         holder.ivRecipe.setImageResource(recipe.imageResId)
 
         holder.itemView.setOnClickListener {
@@ -36,4 +37,9 @@ class RecipeAdapter(
     }
 
     override fun getItemCount() = recipes.size
+
+    fun updateList(newList: List<Recipe>) {
+        recipes = newList
+        notifyDataSetChanged()
+    }
 }
