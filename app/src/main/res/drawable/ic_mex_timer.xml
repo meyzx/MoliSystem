@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Reloj Sol (Inspirado en el calendario azteca/sol mexicano) -->
+    <path
+        android:fillColor="#FBC02D"
+        android:pathData="M12,12m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0" />
+    <path
+        android:fillColor="#F57F17"
+        android:pathData="M12,2L14,5L17,4L16,7L19,8L17,10L20,12L17,14L19,16L16,17L17,20L14,19L12,22L10,19L7,20L8,17L5,16L7,14L4,12L7,10L5,8L8,7L7,4L10,5L12,2Z" />
+    <!-- Manecillas -->
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M12,7h1v5h4v1h-5z" />
+</vector>

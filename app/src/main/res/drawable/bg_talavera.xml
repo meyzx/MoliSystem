@@ -1,0 +1,18 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Patrón de Talavera sutil para fondo -->
+    <path
+        android:fillColor="#101565C0"
+        android:pathData="M50,0 L60,40 L100,50 L60,60 L50,100 L40,60 L0,50 L40,40 Z" />
+    <circle
+        android:cx="50"
+        android:cy="50"
+        android:r="10"
+        android:fillColor="#081565C0" />
+    <path
+        android:fillColor="#08D81B60"
+        android:pathData="M10,10 L20,15 L15,20 Z M90,10 L80,15 L85,20 Z M10,90 L20,85 L15,80 Z M90,90 L80,85 L85,80 Z" />
+</vector>

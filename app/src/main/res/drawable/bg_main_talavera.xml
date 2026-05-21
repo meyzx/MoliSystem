@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Color de fondo base -->
+    <item android:drawable="@color/moli_fondo" />
+
+    <!-- Imagen de Talavera con transparencia -->
+    <item>
+        <bitmap
+            android:src="@drawable/talavera_pattern"
+            android:alpha="0.15"
+            android:tileMode="repeat"
+            android:gravity="center" />
+    </item>
+</layer-list>

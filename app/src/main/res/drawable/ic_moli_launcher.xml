@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Fondo Circular con patrón tipo Talavera suave -->
+    <path
+        android:fillColor="@color/moli_fondo"
+        android:pathData="M54,54m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0" />
+
+    <!-- Bordes decorativos tipo plato de barro -->
+    <path
+        android:strokeColor="@color/moli_terracota"
+        android:strokeWidth="2"
+        android:pathData="M54,54m-45,0a45,45 0,1 1,90 0a45,45 0,1 1,-90 0" />
+
+    <!-- Molcajete (Cuerpo) -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M30,55 L78,55 C78,55 78,75 54,75 C30,75 30,55 30,55 Z" />
+
+    <!-- Patas del Molcajete -->
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M35,74 L40,82 L45,75 Z M63,75 L68,82 L73,74 Z" />
+
+    <!-- Tejolate (Mano del molcajete) -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M48,45 L60,45 L58,58 L50,58 Z" />
+
+    <!-- Chile Serrano (Verde) -->
+    <path
+        android:fillColor="@color/moli_verde"
+        android:pathData="M65,48 C65,48 75,45 80,55 C82,60 75,65 70,62 L65,58 Z" />
+
+    <!-- Tallo del chile -->
+    <path
+        android:fillColor="#33691E"
+        android:pathData="M65,48 L63,45 L66,44 Z" />
+
+    <!-- Flor de Cempasúchil estilizada (Acento Naranja) -->
+    <path
+        android:fillColor="@color/moli_naranja"
+        android:pathData="M40,42 C40,42 42,38 45,40 C48,42 45,46 45,46 C45,46 48,48 45,50 C42,52 40,48 40,48 C40,48 36,50 34,48 C32,46 35,42 35,42 C35,42 32,40 34,38 C36,36 40,40 40,40 Z" />
+
+</vector>
