@@ -17,7 +17,9 @@ data class Recipe(
     val title: String,
     val ingredients: List<Ingredient>,
     val steps: List<Step>,
-    val imageResId: Int,
+    val imageUrl: String,
     val basePortions: Int = 1,
-    val totalTimeMinutes: Int = 30
+    val totalTimeMinutes: Int = 30,
+    val category: String = "Otros",
+    val isDiscovery: Boolean = false
 ) : Serializable

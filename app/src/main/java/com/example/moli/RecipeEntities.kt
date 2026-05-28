@@ -10,11 +10,13 @@ import com.google.gson.reflect.TypeToken
 data class RecipeEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val title: String,
-    val ingredientsJson: String, // Guardaremos la lista como JSON
-    val stepsJson: String,       // Guardaremos la lista como JSON
-    val imageResId: Int,
+    val ingredientsJson: String,
+    val stepsJson: String,
+    val imageUrl: String,
     val basePortions: Int,
-    val totalTimeMinutes: Int
+    val totalTimeMinutes: Int,
+    val category: String = "Otros",
+    val isDiscovery: Boolean = false
 )
 
 class Converters {

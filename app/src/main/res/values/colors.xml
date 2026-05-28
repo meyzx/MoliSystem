@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="moli_fondo">#F6EFE6</color>
-    <color name="moli_terracota">#C96A4B</color>
-    <color name="moli_verde">#5E8B7E</color>
-    <color name="moli_maiz">#E6B84C</color>
+    <!-- Paleta Calidez de Hogar (Tonos Tierra y Sol) -->
+    <color name="moli_fondo">#FFF8E1</color> <!-- Crema Ámbar claro -->
+    <color name="moli_terracota">#D84315</color> <!-- Rojo Arcilla vibrante -->
+    <color name="moli_verde">#689F38</color> <!-- Verde Olivo cálido -->
+    <color name="moli_maiz">#FFC107</color> <!-- Oro Maíz -->
+
+    <!-- Acentos Mexicanos Cálidos -->
+    <color name="moli_rosa">#EC407A</color> <!-- Rosa Atardecer -->
+    <color name="moli_azul">#546E7A</color> <!-- Azul Cenizo Cálido -->
+    <color name="moli_naranja">#FF8F00</color> <!-- Naranja Cempasúchil -->
+
+    <!-- Colores Talavera -->
+    <color name="talavera_azul">#002395</color> <!-- Azul Cobalto Tradicional -->
+    <color name="talavera_blanco">#FFFFFF</color>
+
     <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="gray_dark">#666666</color>
-    <color name="gray_light">#DEDEDE</color>
+    <color name="black">#3E2723</color> <!-- Café oscuro para texto (más cálido que gris) -->
+    <color name="gray_dark">#5D4037</color>
+    <color name="gray_light">#EFEBE9</color>
 </resources>

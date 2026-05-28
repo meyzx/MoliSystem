@@ -1,6 +1,7 @@
 package com.example.moli
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckBox
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.Locale
@@ -28,7 +30,12 @@ class RecipeDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_detail)
 
-        val recipe = intent.getSerializableExtra("RECIPE_DATA") as? Recipe
+        val recipe = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("RECIPE_DATA", Recipe::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getSerializableExtra("RECIPE_DATA") as? Recipe
+        }
 
         containerIngredients = findViewById(R.id.containerIngredients)
         tvPortionCount = findViewById(R.id.tvPortionCount)
@@ -39,8 +46,13 @@ class RecipeDetailActivity : AppCompatActivity() {
 
         recipe?.let {
             tvTitle.text = it.title
-            ivRecipe.setImageResource(it.imageResId)
             tvTotalTime.text = "${it.totalTimeMinutes} min"
+            
+            // Cargar imagen con Glide
+            Glide.with(this)
+                .load(it.imageUrl)
+                .placeholder(android.R.drawable.ic_menu_gallery)
+                .into(ivRecipe)
             
             // Mostrar pasos
             val stepsText = it.steps.joinToString("\n\n") { step ->
@@ -58,7 +70,7 @@ class RecipeDetailActivity : AppCompatActivity() {
             updateIngredientsUI()
         }
 
-        findViewById<View>(R.id.btnBackToMain).setOnClickListener {
+        findViewById<ImageButton>(R.id.btnBackToMain).setOnClickListener {
             finish()
         }
 

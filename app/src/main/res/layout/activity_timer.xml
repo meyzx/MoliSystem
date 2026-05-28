@@ -1,142 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/moli_fondo"
-    android:padding="16dp">
+    android:background="@color/moli_fondo">
 
-    <ImageButton
-        android:id="@+id/btnBackFromTimer"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@android:drawable/ic_menu_revert"
-        app:tint="@color/moli_terracota" />
-
+    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="12dp">
+
+        <ImageButton
+            android:id="@+id/btnBackFromTimer"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_back_button"
+            android:src="@drawable/ic_mex_back"
+            android:scaleType="fitCenter"
+            android:padding="8dp"
+            android:elevation="4dp"
+            android:contentDescription="Regresar" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TEMPORIZADOR"
-            android:textColor="@color/moli_verde"
-            android:letterSpacing="0.2"
-            android:textSize="14sp"
+            android:layout_weight="1"
+            android:text="TEMPORIZADORES"
+            android:textColor="@color/moli_terracota"
+            android:letterSpacing="0.15"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginBottom="40dp" />
+            android:gravity="center" />
 
-        <!-- Selector de tiempo -->
+        <View
+            android:layout_width="44dp"
+            android:layout_height="44dp" />
+
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_light"
+        android:layout_marginHorizontal="16dp" />
+
+    <!-- Content area -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTimers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="12dp"
+            android:paddingBottom="100dp"
+            android:clipToPadding="false" />
+
+        <!-- Empty state -->
         <LinearLayout
-            android:id="@+id/layoutTimePicker"
+            android:id="@+id/layoutEmptyState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginBottom="24dp">
+            android:visibility="gone">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:hint="Minutos"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etTimerMinutes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="15"
-                    android:gravity="center"
-                    android:textSize="24sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_mex_timer"
+                android:tint="@color/gray_light"
+                android:contentDescription="@null" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=":"
-                android:textSize="32sp"
-                android:layout_marginHorizontal="8dp"
-                android:textStyle="bold" />
+                android:text="Sin temporizadores"
+                android:textColor="@color/gray_dark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="100dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Segundos"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:text="Toca el botón para agregar uno"
+                android:textColor="@color/gray_dark"
+                android:textSize="13sp"
+                android:layout_marginTop="4dp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etTimerSeconds"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="00"
-                    android:gravity="center"
-                    android:textSize="24sp" />
-            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardTimerDisplay"
-            android:layout_width="280dp"
-            android:layout_height="280dp"
-            app:cardCornerRadius="140dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/white"
-            app:strokeColor="@color/moli_maiz"
-            app:strokeWidth="4dp"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvTimerDisplay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="15:00"
-                    android:textColor="@color/moli_terracota"
-                    android:textSize="56sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <!-- FAB -->
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fabAddTimer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:text="  Nuevo temporizador"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            app:icon="@drawable/ic_mex_add"
+            app:backgroundTint="@color/moli_terracota"
+            app:iconTint="@color/white"
+            android:contentDescription="Agregar temporizador" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnStartTimer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="INICIAR"
-                android:backgroundTint="@color/moli_terracota"
-                android:paddingHorizontal="32dp"
-                app:cornerRadius="24dp"
-                android:layout_marginEnd="12dp"/>
+    </FrameLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnResetTimer"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CANCELAR"
-                android:textColor="@color/moli_verde"
-                app:strokeColor="@color/moli_verde"
-                app:cornerRadius="24dp"
-                android:visibility="gone" />
-        </LinearLayout>
-    </LinearLayout>
 </LinearLayout>

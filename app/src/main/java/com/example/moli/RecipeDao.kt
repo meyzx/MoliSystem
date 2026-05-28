@@ -5,9 +5,13 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RecipeDao {
+    @Query("SELECT * FROM recipes")
+    fun getAllRecipesFlow(): Flow<List<RecipeEntity>>
+
     @Query("SELECT * FROM recipes")
     suspend fun getAllRecipes(): List<RecipeEntity>
 
@@ -22,4 +26,13 @@ interface RecipeDao {
 
     @Delete
     suspend fun deleteRecipe(recipe: RecipeEntity)
+
+    @Query("SELECT COUNT(*) FROM recipes")
+    suspend fun countAll(): Int
+
+    @Query("SELECT COUNT(*) FROM recipes WHERE isDiscovery = 0")
+    suspend fun countUserCreated(): Int
+
+    @Query("SELECT COALESCE(SUM(totalTimeMinutes), 0) FROM recipes")
+    suspend fun totalCookingMinutes(): Int
 }

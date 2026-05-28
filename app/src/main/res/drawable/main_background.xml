@@ -2,9 +2,9 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/moli_fondo" />
     <item>
-        <bitmap
-            android:src="@drawable/bg_talavera"
-            android:tileMode="repeat"
-            android:alpha="0.05" />
+        <clip
+            android:drawable="@drawable/bg_talavera"
+            android:clipOrientation="horizontal|vertical"
+            android:gravity="center" />
     </item>
 </layer-list>

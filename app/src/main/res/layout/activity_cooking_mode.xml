@@ -8,13 +8,16 @@
 
     <ImageButton
         android:id="@+id/btnBackFromCooking"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@android:drawable/ic_menu_revert"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_back_button"
+        android:src="@drawable/ic_mex_back"
+        android:scaleType="fitCenter"
+        android:padding="8dp"
+        android:elevation="4dp"
+        android:contentDescription="Regresar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/moli_terracota" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvCookingTitle"
@@ -26,19 +29,32 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/btnBackFromCooking"
-        app:layout_constraintEnd_toStartOf="@id/btnTimerShort"
+        app:layout_constraintEnd_toStartOf="@id/btnSpeakStep"
         app:layout_constraintStart_toEndOf="@id/btnBackFromCooking"
+        app:layout_constraintTop_toTopOf="@id/btnBackFromCooking" />
+
+    <ImageButton
+        android:id="@+id/btnSpeakStep"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="4dp"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:background="@drawable/bg_back_button"
+        android:src="@drawable/ic_mex_speak"
+        app:layout_constraintBottom_toBottomOf="@id/btnBackFromCooking"
+        app:layout_constraintEnd_toStartOf="@id/btnTimerShort"
         app:layout_constraintTop_toTopOf="@id/btnBackFromCooking" />
 
     <ImageButton
         android:id="@+id/btnTimerShort"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@android:drawable/ic_menu_recent_history"
+        android:background="@drawable/bg_back_button"
+        android:src="@drawable/ic_mex_timer"
+        app:layout_constraintBottom_toBottomOf="@id/btnBackFromCooking"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/moli_terracota" />
+        app:layout_constraintTop_toTopOf="@id/btnBackFromCooking" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/cookingProgress"

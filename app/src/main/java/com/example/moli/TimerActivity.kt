@@ -1,134 +1,152 @@
 package com.example.moli
 
+import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.card.MaterialCardView
-import java.util.Locale
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 class TimerActivity : AppCompatActivity() {
 
-    private lateinit var tvTimerDisplay: TextView
-    private lateinit var etMinutes: EditText
-    private lateinit var etSeconds: EditText
-    private lateinit var layoutTimePicker: LinearLayout
-    private lateinit var cardTimerDisplay: MaterialCardView
-    private lateinit var btnStart: Button
-    private lateinit var btnReset: Button
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var layoutEmptyState: LinearLayout
+    private lateinit var adapter: TimerAdapter
 
-    private var countDownTimer: CountDownTimer? = null
-    private var timeLeftInMillis: Long = 0
-    private var timerRunning: Boolean = false
+    private val timers = mutableListOf<TimerData>()
+    private val countDownTimers = HashMap<Int, CountDownTimer>()
+    private var nextId = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer)
 
-        tvTimerDisplay = findViewById(R.id.tvTimerDisplay)
-        etMinutes = findViewById(R.id.etTimerMinutes)
-        etSeconds = findViewById(R.id.etTimerSeconds)
-        layoutTimePicker = findViewById(R.id.layoutTimePicker)
-        cardTimerDisplay = findViewById(R.id.cardTimerDisplay)
-        btnStart = findViewById(R.id.btnStartTimer)
-        btnReset = findViewById(R.id.btnResetTimer)
+        recyclerView = findViewById(R.id.recyclerTimers)
+        layoutEmptyState = findViewById(R.id.layoutEmptyState)
 
-        findViewById<ImageButton>(R.id.btnBackFromTimer).setOnClickListener {
-            finish()
-        }
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        val animator = DefaultItemAnimator()
+        animator.supportsChangeAnimations = false
+        recyclerView.itemAnimator = animator
 
-        btnStart.setOnClickListener {
-            if (timerRunning) {
-                pauseTimer()
-            } else {
-                if (countDownTimer == null) {
-                    setupAndStartNewTimer()
-                } else {
-                    startTimer()
-                }
-            }
-        }
+        adapter = TimerAdapter(
+            timers = timers,
+            onStartPause = ::toggleTimer,
+            onReset = ::resetTimer,
+            onDelete = ::deleteTimer
+        )
+        recyclerView.adapter = adapter
 
-        btnReset.setOnClickListener {
-            resetToInputMode()
+        addNewTimer()
+
+        findViewById<ImageButton>(R.id.btnBackFromTimer).setOnClickListener { finish() }
+        findViewById<ExtendedFloatingActionButton>(R.id.fabAddTimer).setOnClickListener {
+            addNewTimer()
+            recyclerView.smoothScrollToPosition(timers.size - 1)
         }
     }
 
-    private fun setupAndStartNewTimer() {
-        val minStr = etMinutes.text.toString()
-        val secStr = etSeconds.text.toString()
+    private fun addNewTimer() {
+        val id = nextId++
+        timers.add(TimerData(id = id, label = "Temporizador $id"))
+        adapter.notifyItemInserted(timers.size - 1)
+        updateEmptyState()
+    }
 
-        val minutes = if (minStr.isNotEmpty()) minStr.toLong() else 0L
-        val seconds = if (secStr.isNotEmpty()) secStr.toLong() else 0L
+    private fun toggleTimer(timer: TimerData) = when (timer.state) {
+        TimerState.IDLE -> startTimer(timer)
+        TimerState.RUNNING -> pauseTimer(timer)
+        TimerState.PAUSED -> resumeTimer(timer)
+        TimerState.FINISHED -> Unit
+    }
 
-        if (minutes == 0L && seconds == 0L) {
-            Toast.makeText(this, "Ingresa un tiempo válido", Toast.LENGTH_SHORT).show()
+    private fun startTimer(timer: TimerData) {
+        val total = (timer.inputMinutes * 60L + timer.inputSeconds) * 1000L
+        if (total == 0L) {
+            Snackbar.make(recyclerView, "Ingresa un tiempo mayor a 0", Snackbar.LENGTH_SHORT).show()
             return
         }
-
-        timeLeftInMillis = (minutes * 60 + seconds) * 1000
-        
-        // Cambiar a modo cuenta regresiva
-        layoutTimePicker.visibility = View.GONE
-        cardTimerDisplay.visibility = View.VISIBLE
-        btnReset.visibility = View.VISIBLE
-        
-        startTimer()
+        timer.totalMillis = total
+        timer.timeLeftMillis = total
+        timer.state = TimerState.RUNNING
+        adapter.refreshTimer(timer.id)
+        launchCountDown(timer)
     }
 
-    private fun startTimer() {
-        countDownTimer = object : CountDownTimer(timeLeftInMillis, 1000) {
+    private fun pauseTimer(timer: TimerData) {
+        countDownTimers.remove(timer.id)?.cancel()
+        timer.state = TimerState.PAUSED
+        adapter.refreshTimer(timer.id)
+    }
+
+    private fun resumeTimer(timer: TimerData) {
+        timer.state = TimerState.RUNNING
+        adapter.refreshTimer(timer.id)
+        launchCountDown(timer)
+    }
+
+    private fun resetTimer(timer: TimerData) {
+        countDownTimers.remove(timer.id)?.cancel()
+        timer.state = TimerState.IDLE
+        timer.totalMillis = 0
+        timer.timeLeftMillis = 0
+        adapter.refreshTimer(timer.id)
+    }
+
+    private fun deleteTimer(timer: TimerData) {
+        countDownTimers.remove(timer.id)?.cancel()
+        val removedIndex = adapter.removeTimer(timer.id)
+        updateEmptyState()
+
+        Snackbar.make(recyclerView, "${timer.label} eliminado", Snackbar.LENGTH_LONG)
+            .setAction("Deshacer") {
+                val restoreIndex = removedIndex.coerceIn(0, timers.size)
+                timers.add(restoreIndex, timer)
+                adapter.notifyItemInserted(restoreIndex)
+                updateEmptyState()
+            }
+            .show()
+    }
+
+    private fun launchCountDown(timer: TimerData) {
+        countDownTimers.remove(timer.id)?.cancel()
+        val countdown = object : CountDownTimer(timer.timeLeftMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                timeLeftInMillis = millisUntilFinished
-                updateCountDownText()
+                timer.timeLeftMillis = millisUntilFinished
+                adapter.tickTimer(timer.id)
             }
 
             override fun onFinish() {
-                timerRunning = false
-                btnStart.text = "¡LISTO!"
-                btnStart.isEnabled = false
+                timer.timeLeftMillis = 0
+                timer.state = TimerState.FINISHED
+                countDownTimers.remove(timer.id)
+                adapter.refreshTimer(timer.id)
+                playFinishSound()
+                Snackbar.make(recyclerView, "¡${timer.label} terminó!", Snackbar.LENGTH_LONG).show()
             }
         }.start()
-
-        timerRunning = true
-        btnStart.text = "PAUSA"
+        countDownTimers[timer.id] = countdown
     }
 
-    private fun pauseTimer() {
-        countDownTimer?.cancel()
-        timerRunning = false
-        btnStart.text = "CONTINUAR"
+    private fun playFinishSound() {
+        try {
+            val uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            RingtoneManager.getRingtone(applicationContext, uri)?.play()
+        } catch (_: Exception) {}
     }
 
-    private fun resetToInputMode() {
-        countDownTimer?.cancel()
-        countDownTimer = null
-        timerRunning = false
-        
-        timeLeftInMillis = 0
-        layoutTimePicker.visibility = View.VISIBLE
-        cardTimerDisplay.visibility = View.GONE
-        btnReset.visibility = View.GONE
-        
-        btnStart.text = "INICIAR"
-        btnStart.isEnabled = true
-    }
-
-    private fun updateCountDownText() {
-        val minutes = (timeLeftInMillis / 1000) / 60
-        val seconds = (timeLeftInMillis / 1000) % 60
-        val timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
-        tvTimerDisplay.text = timeLeftFormatted
+    private fun updateEmptyState() {
+        layoutEmptyState.visibility = if (timers.isEmpty()) View.VISIBLE else View.GONE
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        countDownTimer?.cancel()
+        countDownTimers.values.forEach { it.cancel() }
     }
 }

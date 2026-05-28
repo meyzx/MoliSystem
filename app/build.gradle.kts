@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -40,6 +40,9 @@ android {
             // Setting this to false (or removing it) avoids conflicts with deprecated bundle options.
             useLegacyPackaging = false
         }
+    }
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
 
